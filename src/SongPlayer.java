@@ -15,25 +15,29 @@ import java.awt.Graphics;
 import java.util.ArrayList;
 
 /**
- * Plays the music, the song depends on the String passed into it.  Creates an Ending when Quit is pressed.
- * @author apple
+ * Plays the music, the song depends on the String passed into it.  Creates and displays 
+ * an Ending when Quit is pressed.
+ * @author Jared
  *
  */
 public class SongPlayer extends JPanel implements KeyListener, ActionListener, FocusListener, MouseListener
 {
 	AudioPlayer p;
 	AudioStream as;
+
 	ArrayList scores;
+
 	int score;
-	int notesAtATime;//number of notes displayed
+	int notesAtATime; //number of notes displayed
 	int startValue;
 	int difficulty;
 	boolean songCanPlay;
-	//difficulties:
-	static int EASY=0;
-	static int MEDIUM=1;
-	static int HARD=2;
-	Beat currentBeat;
+
+	final static int EASY=0; 	//difficulties:
+	final static int MEDIUM=1;
+	final static int HARD=2;
+
+	Beat currentBeat; //holds current beat
 	int beatCount;
 	Song currentSong;
 	Timer timer;
@@ -43,7 +47,9 @@ public class SongPlayer extends JPanel implements KeyListener, ActionListener, F
 	float tempoFactor;
 	//milliseconds per beat
 	int msbp;
+
 	String songName;
+
 	public void stopSong()
 	{
 		player.stop();
@@ -65,7 +71,7 @@ public class SongPlayer extends JPanel implements KeyListener, ActionListener, F
 		else
 		{
 			currentSong=lib.getDLM();
-			msbp=167;//*(3-difficulty);
+			msbp=167;
 			tempoFactor=1F/(3-difficulty);
 		}
 		timer=new Timer(msbp, this);
@@ -77,6 +83,7 @@ public class SongPlayer extends JPanel implements KeyListener, ActionListener, F
 		beatCount=0;
 
 		currentBeat=(Beat)currentSong.getBeats().get(0);
+
 		if(songName.equals("SomeoneLikeYou"))
 		{
 			Sequence song;
@@ -95,7 +102,7 @@ public class SongPlayer extends JPanel implements KeyListener, ActionListener, F
 				e.printStackTrace();
 			}
 		}
-		else
+		else //for other song
 		{
 			try{ 
 				p = AudioPlayer.player;
@@ -107,7 +114,9 @@ public class SongPlayer extends JPanel implements KeyListener, ActionListener, F
 	}
 
 
-
+	/**
+	 * Draws piano background as well as all notes to be played within notesAtATime beats.
+	 */
 	public void paintComponent(Graphics g)
 	{
 		if(songCanPlay)
@@ -192,6 +201,10 @@ public class SongPlayer extends JPanel implements KeyListener, ActionListener, F
 		}
 	}
 
+	/**
+	 * Stops song and changes to Ending screen.
+	 * @param scores
+	 */
 	public void endScreen(ArrayList scores)
 	{
 		if(songName.equals("SomeoneLikeYou"))
@@ -216,6 +229,9 @@ public class SongPlayer extends JPanel implements KeyListener, ActionListener, F
 		repaint();
 	}
 
+	/**
+	 * Compares keys pressed to notes on screen.
+	 */
 	public void keyPressed(KeyEvent evt) 
 	{
 		int key=evt.getKeyCode();
@@ -356,6 +372,7 @@ public class SongPlayer extends JPanel implements KeyListener, ActionListener, F
 	public void mouseReleased(MouseEvent arg0) {}
 	/**
 	 * Defines a song, of which there are two so far.
+	 * Contains information for each beat in a song.
 	 *
 	 */
 	public class Song
@@ -383,7 +400,8 @@ public class SongPlayer extends JPanel implements KeyListener, ActionListener, F
 			add(new Beat(false, false, false, false, false, false, false, false));
 
 		}
-		public void AMajorTriad()
+		//methods made for adding some common patterns--------------------------------------
+		public void AMajorTriad() 
 		{
 			add(new Beat(false, false, false, true, false, true, false, false));//unison A
 			add(new Beat(false, false, false, false, false, false, true, false));//with C#

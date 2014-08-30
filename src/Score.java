@@ -1,5 +1,5 @@
 /**
- * Defines an individual score, including the name and score.
+ * Defines an individual score, including the name, score, and song.
  *
  */
 

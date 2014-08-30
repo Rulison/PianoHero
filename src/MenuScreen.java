@@ -20,8 +20,9 @@ import com.sun.org.apache.bcel.internal.generic.NEW;
  *
  */
 public class MenuScreen extends JPanel{
+	
 	Font titleFont;
-	boolean playNow;
+	boolean playNow; //tells if a song is playing or not
 	int titleFontSize;
 	DifficultyPanel diffPanel;
 	String currentSong;
@@ -43,13 +44,7 @@ public class MenuScreen extends JPanel{
 
 		add(new SizePanel(),BorderLayout.EAST);
 		bar=new JMenuBar();
-		JMenu toolsMenu = new JMenu("Play");
-		JMenuItem beginCommand = new JMenuItem("Begin");   // Create a menu item.
-		beginCommand.addActionListener(diffPanel);         // Add listener to menu item.
-		toolsMenu.add(beginCommand); 
-		bar.add(toolsMenu);
 		JPanel n=new JPanel();
-		//n.add(bar);
 		n.add(new SelectionPanel());
 		add(n,BorderLayout.NORTH);
 		titleFontSize=72;
@@ -78,7 +73,6 @@ public class MenuScreen extends JPanel{
 		int diff=diffPanel.getDifficulty();
 		player=new SongPlayer(diff, scores, currentSong);
 		add(player,BorderLayout.CENTER);
-
 
 		playNow=true;
 		revalidate();
@@ -109,6 +103,9 @@ public class MenuScreen extends JPanel{
 		}
 	}
 
+	/**
+	 * So other classes can call repaint();
+	 */
 	public void repaintMenu()
 	{
 		repaint();
@@ -141,7 +138,7 @@ public class MenuScreen extends JPanel{
 	 */
 	public class SelectionPanel extends JPanel implements ActionListener
 	{
-		JComboBox songs;
+		JComboBox songs; //all songs
 		JLabel disclaimer;
 		public SelectionPanel() 
 		{

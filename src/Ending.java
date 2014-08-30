@@ -4,19 +4,18 @@ import java.awt.*;
 import javax.swing.*;
 
 /**
- * Ending screen
+ * Ending screen.  Lists high scores from this iteration of Piano Hero.
  *
  */
 
 public class Ending extends JPanel{
 
-	//scores recorded
-	ArrayList scores;
+	ArrayList scores; //scores recorded
 	public Ending(ArrayList scores)
 	{
 		this.scores=scores;
 		setLayout(new GridLayout(4,4));
-		add(new JLabel("High scores:"));//I won't read your comments.
+		add(new JLabel("High scores:"));
 		String stringScores="";
 		for(int i=0;i<scores.size();i++)
 		{
