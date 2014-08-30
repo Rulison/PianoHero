@@ -12,7 +12,12 @@ import java.awt.*;
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-
+/**
+ * Main class for PianoHero.  Creates a JFrame and puts a MenuScreen
+ * inside.
+ * @author Jared
+ *
+ */
 
 public class PianoWindow 
 {

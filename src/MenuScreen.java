@@ -28,6 +28,10 @@ public class MenuScreen extends JPanel{
 	SongPlayer player;
 	JMenuBar bar;
 	ArrayList scores=new ArrayList();
+	
+	/**
+	 * Constructs and arranges components of Menu screen.
+	 */
 	public MenuScreen()
 	{
 		currentSong="SomeoneLikeYou";
@@ -45,11 +49,14 @@ public class MenuScreen extends JPanel{
 		toolsMenu.add(beginCommand); 
 		bar.add(toolsMenu);
 		JPanel n=new JPanel();
-		n.add(bar);
+		//n.add(bar);
 		n.add(new SelectionPanel());
 		add(n,BorderLayout.NORTH);
 		titleFontSize=72;
 	}
+	/**
+	 * Called when a new song is beginning.  Stops the current songs and begins the new one.
+	 */
 	public void clearMenu()
 	{
 		if(currentSong.equals("SomeoneLikeYou"))
@@ -62,11 +69,12 @@ public class MenuScreen extends JPanel{
 			catch(NullPointerException e)
 			{};
 		}
-		try
-		{
+		try	{
 			remove(player);
 		}catch(NullPointerException e)
-		{};
+		{
+			
+		};
 		int diff=diffPanel.getDifficulty();
 		player=new SongPlayer(diff, scores, currentSong);
 		add(player,BorderLayout.CENTER);
@@ -77,9 +85,11 @@ public class MenuScreen extends JPanel{
 		repaint();
 	}
 
+	/**
+	 * Draws piano background
+	 */
 	public void paintComponent(Graphics g)
 	{
-
 		super.paintComponent(g);
 		if(!playNow)
 		{
@@ -104,8 +114,7 @@ public class MenuScreen extends JPanel{
 		repaint();
 	}
 	/**
-	 * Slider that changed title font size.
-	 *
+	 * Slider that changed title font size.  Just for fun!
 	 */
 	public class SizePanel extends JPanel implements ChangeListener
 	{
@@ -125,6 +134,11 @@ public class MenuScreen extends JPanel{
 		}
 
 	}
+	/**
+	 * For song selection.
+	 * @author Jared
+	 *
+	 */
 	public class SelectionPanel extends JPanel implements ActionListener
 	{
 		JComboBox songs;
@@ -135,7 +149,7 @@ public class MenuScreen extends JPanel{
 			songs.setFont(new Font("TimesNewRoman", Font.PLAIN,12));
 			songs.addItem("Someone Like You - Adele");
 			songs.addItem("Don't Leave Me - Regina Spektor");
-			disclaimer=new JLabel("To buy more songs, visit the RULISON STORE");
+			disclaimer=new JLabel("More songs to be added later.");
 			add(songs);
 			add(disclaimer);
 			songs.addActionListener(this);
@@ -167,18 +181,21 @@ public class MenuScreen extends JPanel{
 		{
 			begin=new JButton("Begin");
 			quit=new JButton("Quit");
+			
 			easy=new JCheckBox("Easy");
 			easy.setSelected(false);
 			medium=new JCheckBox("Medium");
 			medium.setSelected(false);
 			difficult=new JCheckBox("Difficult");
 			difficult.setSelected(true);
+			
 			//listen to buttons
 			easy.addActionListener(this);
 			quit.addActionListener(this);
 			medium.addActionListener(this);
 			difficult.addActionListener(this);
 			begin.addActionListener(this);
+			
 			//add buttons
 			add(easy);
 			add(medium);
@@ -186,6 +203,10 @@ public class MenuScreen extends JPanel{
 			add(begin);
 			add(quit);
 		}
+		/**
+		 * Returns which difficulty is selected.
+		 * @return
+		 */
 		public int getDifficulty()
 		{
 			if(easy.isSelected())
@@ -195,6 +216,7 @@ public class MenuScreen extends JPanel{
 			else
 				return SongPlayer.HARD;
 		}
+		
 		public void actionPerformed(ActionEvent evt) {
 			Object source=evt.getSource();
 			String command = evt.getActionCommand();
@@ -231,8 +253,11 @@ public class MenuScreen extends JPanel{
 			{
 				try
 				{
+					if(player == null || !player.isPlaying()) {
+						System.exit(0);
+					}
 					String name=JOptionPane.showInputDialog(this, "Enter name:");//gets name
-					scores.add(new Score(name,player.score));
+					scores.add(new Score(name,player.score, currentSong));
 					player.endScreen(scores);
 				}catch (NullPointerException e)
 				{}

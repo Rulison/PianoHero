@@ -7,13 +7,15 @@ public class Score
 {
 	String name;
 	int score;
-	public Score(String name, int score)
+	String song;
+	public Score(String name, int score, String song)
 	{
 		this.name=name;
 		this.score=score;
+		this.song = song;
 	}
 	public String toString()
 	{
-		return name+": "+score;
+		return name+": "+score+" for "+song;
 	}
 }

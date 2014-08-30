@@ -206,7 +206,9 @@ public class SongPlayer extends JPanel implements KeyListener, ActionListener, F
 		add(end,BorderLayout.CENTER);
 		revalidate();
 	}
-
+	public boolean isPlaying() {
+		return songCanPlay;
+	}
 
 	public void actionPerformed(ActionEvent evt) 
 	{

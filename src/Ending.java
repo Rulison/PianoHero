@@ -16,8 +16,7 @@ public class Ending extends JPanel{
 	{
 		this.scores=scores;
 		setLayout(new GridLayout(4,4));
-		add(new JLabel("Send Comments to the Creator!"));//I won't read your comments.
-		add(new JTextField());
+		add(new JLabel("High scores:"));//I won't read your comments.
 		String stringScores="";
 		for(int i=0;i<scores.size();i++)
 		{
